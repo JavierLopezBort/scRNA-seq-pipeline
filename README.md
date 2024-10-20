@@ -7,32 +7,37 @@ scRNA-seq pipeline used for my Master thesis called: "Optimisation of a scRNA-se
 
 The conda environment used for running ivypipe.py:
 
+$ conda config --add channels bioconda
 
-conda config --add channels bioconda
+$ conda config --add channels defaults
 
-conda config --add channels defaults
+$ conda config --add channels pytorch
 
-conda config --add channels pytorch
+$ conda config --add channels nvidia
 
-conda config --add channels nvidia
+$ conda config --add channels r
 
-conda config --add channels r
+$ mamba create -n ivysnake
 
-mamba create -n ivysnake
+$ mamba activate ivysnake
 
-mamba activate ivysnake
+$ mamba install pip
 
-mamba install pip
+$ sudo apt update
 
-sudo apt update
+$ sudo apt install gcc                                               # To install packages through pip
 
-sudo apt install gcc
+$ export PATH=/usr/bin/gcc:$PATH
 
-pip install snakemake
+$ pip install snakemake
 
-pip install snakemake-storage-plugin-gcs             # Optional, only for GKE
+$ pip install snakemake-storage-plugin-gcs                           # Optional, only for GKE
 
-pip install snakemake-executor-plugin-kubernetes     # Optional, only for GKE
+$ pip install snakemake-executor-plugin-kubernetes                   # Optional, only for GKE
+
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh     # To install packages through github links
+
+$ export PATH=$HOME/.cargo/bin:$PATH
 
 
 The rest of environments are contained in workflow/envs folder, and are installed directly through conda argument in snakemake rules.
