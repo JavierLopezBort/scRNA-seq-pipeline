@@ -1,6 +1,18 @@
 # scRNA-seq-pipeline
 scRNA-seq pipeline used for my Master thesis called: "Optimisation of a scRNA-seq bioinformatic pipeline to assess efficiency of meiotic cell induction"
 
+## scgATLAS
+
+Two scgATLAS are constructed using the following studies:
+
+- invivo: "Hermann", "Persio", "Murat", "Murat_chimp", "Huang", "Murat_chicken", "Murat_macaque", "Murat_marmoset", "Murat_mouse", "Reich", "Ge".
+  
+- invitro: "Irie", "Seita", "Smela", "Sosa", "Taelman"
+
+The two scgATLAS are stored in two .h5ad files:
+
+https://drive.google.com/drive/folders/1xmktrmxxZYA6a5qkGQ-zaQpGRN2qe0St?usp=sharing
+
 ## Prerequisites
 
 ### Installation
