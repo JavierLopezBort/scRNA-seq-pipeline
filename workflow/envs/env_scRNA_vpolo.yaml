@@ -1,0 +1,14 @@
+name: env_scRNA_vpolo
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - python=3.10.8
+    - pip
+    - pip:
+      - git+https://github.com/k3yavi/vpolo.git
+      - scanpy
+      - pandas

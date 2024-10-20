@@ -1,0 +1,5 @@
+name: env_scRNA_star
+channels:
+    - bioconda
+dependencies:
+    - star

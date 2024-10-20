@@ -1,0 +1,18 @@
+name: env_scRNA_scvelo
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - python
+    - pip
+    - matplotlib
+    - numpy
+    - louvain
+    - scanpy
+    - scvelo
+    - anndata
+    - pandas
+    - leidenalg

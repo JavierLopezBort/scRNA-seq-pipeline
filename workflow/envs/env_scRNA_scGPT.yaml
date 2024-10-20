@@ -1,0 +1,31 @@
+name: scGPT_analysis
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python<3.11
+  #- python=3.10.8
+  - pip 
+  - pytorch
+  - pytorch-cuda
+  - faiss-gpu
+  - torchvision
+  - torchaudio
+  - pandas
+  - scipy
+  - scanpy
+  #- scgpt
+  - r-base
+  - pip:
+    - wandb
+    - scgpt==0.1.7
+    - flash-attn==1.0.4
+    #- scgpt==0.2.1
+    #- scgpt==0.1.5
+    #- scgpt
+    #- flash-attn 
+    #- flash-attn==1.0.4
+    - enformer-pytorch
+    #- networkx

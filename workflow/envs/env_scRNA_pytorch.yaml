@@ -1,0 +1,10 @@
+name: env_scRNA_linux
+channels:
+    - pytorch
+    - nvidia
+dependencies:
+    - python=3.12.2
+    - pytorch
+    - torchvision 
+    - torchaudio 
+    - pytorch-cuda

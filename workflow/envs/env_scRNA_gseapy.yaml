@@ -1,0 +1,18 @@
+name: env_scRNA_diffxpy
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - python=3.10.8
+    - pip
+    - matplotlib
+    - numpy>=1.17
+    - gseapy
+    - pip:
+      - scanpy
+      - scvelo
+      - anndata
+      - pandas

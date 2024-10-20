@@ -1,0 +1,28 @@
+name: env_scRNA_scGPT
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - pip
+    - python=3.10.8 
+    - pytorch
+    - pytorch-cuda
+    - cuda
+    #- faiss
+    - faiss-gpu
+    - torchvision
+    - torchaudio
+    - pandas
+    - scipy
+    - scanpy
+    - pip:
+      - packaging
+      - ninja
+      - wandb
+      - scgpt 
+      - flash-attn=1.0.4 --no-build-isolation
+      - enformer-pytorch
+      #- networkx

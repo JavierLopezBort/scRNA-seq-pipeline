@@ -1,0 +1,14 @@
+name: env_scRNA_salmon
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - python=3.10.8
+    - salmon
+    - alevin-fry
+    - pip
+    - pip:
+        - pandas

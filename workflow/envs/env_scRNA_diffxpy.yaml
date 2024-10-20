@@ -1,0 +1,25 @@
+name: env_scRNA_diffxpy
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - python=3.10.8
+    - pip
+    - matplotlib
+    - numpy>=1.17
+    - pip:
+      - scanpy
+      - scvelo
+      - anndata
+      - pandas
+      - cython
+      - jinja2
+      - tf-nightly
+      - tfp-nightly
+      #- git+https://github.com/theislab/batchglm.git
+      - git+https://github.com/theislab/diffxpy.git
+      - dask==2021.4.0
+      - sparse==0.9.1

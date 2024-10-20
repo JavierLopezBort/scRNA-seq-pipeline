@@ -1,0 +1,18 @@
+name: env_scRNA_scbi
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - pip
+    - louvain
+    - r-essentials
+    - r-base
+    - numpy<2.0.0
+    - pip:
+      - scib
+      - rpy2 >= 3
+      - anndata2ri
+    
