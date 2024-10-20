@@ -1,0 +1,22 @@
+# CREATE INDEX
+transcriptome: "ref/GRCh38/ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna"
+gtf: "ref/GRCh38/ncbi_dataset/data/GCF_000001405.40/genomic.gtf"
+read_length: 100
+splici_flank_trim_len: 5
+
+# USE INDEX
+
+# Alevin_fry
+alevin_folder: "ref/GRCh38/splici_GCF_000001405.40_GRCh38.p14"
+tx2gene: "ref/GRCh38/splici_GCF_000001405.40_GRCh38.p14/splici_fl95_t2g_3col.tsv"
+transcriptome_splici: "ref/GRCh38/splici_GCF_000001405.40_GRCh38.p14/splici_fl95.fa"
+gene_id_to_name: "ref/GRCh38/splici_GCF_000001405.40_GRCh38.p14/gene_id_to_name.tsv"
+idx_alevin: "ref/GRCh38/splici_GCF_000001405.40_GRCh38.p14_salmon_index"
+#barcode_list: "ref/barcode_lists/sc_5_v3.txt"
+#barcode_list: "ref/barcode_lists/sc_3_v2-5_v1_5_v2-HT_v2.txt" # probable same as tutorial
+
+# STARsolo
+idx_STAR: "ref/GRCh38/GCF_000001405.40_GRCh38.p14_star_index"
+
+mt_genes: "ref/GRCh38/mt_genes.txt"
+rrna_genes: "ref/GRCh38/ribosome.txt"

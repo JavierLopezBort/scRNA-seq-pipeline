@@ -1,0 +1,23 @@
+# CREATE INDEX
+transcriptome: "ref/waterbuffalo/ncbi_dataset/data/GCF_019923935.1/GCF_019923935.1_NDDB_SH_1_genomic.fna"
+gtf: "ref/waterbuffalo/ncbi_dataset/data/GCF_019923935.1/genomic.gtf"
+read_length: 100
+splici_flank_trim_len: 5
+
+# USE INDEX
+
+# Alevin_fry
+alevin_folder: "ref/waterbuffalo/splici_GCF_019923935.1_NDDB_SH_1"
+tx2gene_: "ref/waterbuffalo/splici_GCF_019923935.1_NDDB_SH_1/splici_fl95_t2g_3col.tsv"
+transcriptome_splici: "ref/waterbuffalo/splici_GCF_019923935.1_NDDB_SH_1/splici_fl95.fa"
+gene_id_to_name: "ref/waterbuffalo/splici_GCF_019923935.1_NDDB_SH_1/gene_id_to_name.tsv"
+idx_alevin: "ref/waterbuffalo/splici_GCF_019923935.1_NDDB_SH_1_salmon_index"
+#barcode_list: "ref/barcode_lists/sc_5_v3.txt"
+#barcode_list: "ref/barcode_lists/sc_3_v2-5_v1_5_v2-HT_v2.txt" # probable same as tutorial
+
+# STARsolo
+idx_STAR: "ref/waterbuffalo/GCF_019923935.1_NDDB_SH_1_star_index"
+
+mt_genes: "ref/GRCh38/mt_genes.txt"
+rrna_genes: "ref/GRCh38/ribosome.txt"
+

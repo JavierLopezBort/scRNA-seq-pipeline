@@ -1,0 +1,173 @@
+# COMMAND LINE
+pipeline: scRNA
+maxJobs:  16
+maxMemMB: 64000
+conda_prefix: "/root/miniforge3/envs/"      # local
+apptainer_prefix: "/root/docker/"           # local
+paired_end: True
+
+# 0. RAW
+raw_method: "fastqc" # "fastqc"
+
+# 0. INDEX
+index_method: "alevin_fry_idx" # "alevin_fry_tab_idx" "alevin_fry_idx" "faiss_index" "STARsolo_idx" "faiss_idx"
+# faiss_index
+faiss_index_method: "faiss_add" # "faiss_build" "faiss_add"
+model_dir_0: "ref/scGPT/model_whole-human/"
+index_dir_0: "ref/scGPT/faiss_idx_CellXGene/"
+
+# 1. TRIMMING
+trimming_method: "trimmomatic" # cutadapt # fastp # trimmomatic # no_trim
+# Trimmomatic
+adapters_tr: "ref/TruSeq3-PE.fa"
+adapters_params: "0:30:16" #1:20:8
+trailing: False
+trailing_params: "3"
+leading: False
+leading_params: "3"
+sliding_window: False
+sliding_window_params: "4:15"
+min_len: False
+min_len_params: "36"
+compression_level: "-3" #fastest and less eficient (bigger file) is -1, slowest and more efficient (smaller file) is -9
+# Cutadapt
+#adapters_ca: "-A AGAGCACACGTCTGAACTCCAGTCAC -G AGATCGGAAGAGCACACGT" # A for 3' pe, G for 5' pe
+#adapters_ca: "-a AGAGCACACGTCTGAACTCCAGTCAC -g AGATCGGAAGAGCACACGT" # a for 3' se, g for 5' se
+#adapters_ca: "-G GCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTTTT -G TACACTCTTTCCCTACACGACGCTCTTCCGATCT -G GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT -G AAGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTT -G AAGCAGTGGTATCAACGCAGAGTACTGTTTTTTTTTTTTTTTTTTTTTTT -G AGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTTT -G GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+adapters_ca: "-G GCAGTGGTATCAACGCAGAGTAC -G TACACTCTTTCCCTACACGACGCTCTTCCGATCT -G GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT -G AAGCAGTGGTATCAACGCAGAGTAC -G AAGCAGTGGTATCAACGCAGAGTACTG -G AGCAGTGGTATCAACGCAGAGTAC -G GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG -G GGGGGGGGGGGGGGGGGGGGG -G TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -G TTTTTTTTTTTTTTTTTTTTT"
+#extra_ca: "--minimum-length 1"
+extra_ca: "--minimum-length 54 -q 20"
+#extra_ca: "-q 20"
+# Fastp
+adapters_fp: "--adapter_sequence AAGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTT --adapter_sequence_r2 AAGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTT"
+#adapters_fp: "--adapter_sequence AAGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTT"
+#extra_fp: "--length_required 1 --qualified_quality_phred 20"
+extra_fp: "--length_required 100"
+trimming: False
+
+# 2. ALIGNMENT
+alignment_method: "alevin_fry" # "alevin_fry" "STARsolo" "alevin_fry_tab" "STARsolo_tab"
+# alevin_fry
+libtype_fry: "ISR" # ISR before, now ISF ISF for 5', ISR for 3'
+tech_fry: "chromium" # chromium for v2, chromiumV3 for v3
+max_records: 40000000
+expected_ori: "fw" # "fw" "rc" "both"
+barcode_list_type: "internal" # "internal" "external"
+# alevin_fry_tab
+libtype_tab: "ISR" # ISR before, now ISF ISF for 5', ISR for 3'
+tech_tab: "citeseq" # chromium for v2, chromiumV3 for v3
+featureStart: 10 # 0 for CITE-seq and 10 for 10x based feature barcoding
+featureLength: 15 # 15 for both CITE-seq and 10x based feature barcoding
+
+# 3. COUNT MATRIX
+count_matrix_method: "pyroe" # "pyroe" "culmulative" "pyroe_fb" "ivynatal_correction" "STARsolo_cm" "STARsolo_cm_nosplici"
+# Pyroe_fb
+fbarcodes_study: "ivn_scRNA"
+threshold: 0.75
+# Culmulative
+join_method: "inner" # "outer" # Inner for novelo, outer for velo
+#culm_studies: ["Hermann", "Persio", "Murat", "Murat_chimp", "Huang", "Murat_chicken", "Murat_macaque", "Murat_marmoset", "Murat_mouse", "Reich", "Ge"]
+#culm_studies: ["Hermann", "Persio", "Murat", "Murat_chimp", "Huang", "Reich"]
+#culm_studies: ["Hermann", "Persio", "Murat", "Murat_chimp", "Huang_filt", "Reich"]
+culm_studies: ["Hermann", "Persio", "Murat", "Murat_chimp", "Reich"]
+#culm_studies: ["Irie", "Seita", "Smela", "Sosa", "Taelman"]
+#culm_studies: ["Irie_filt"]
+# correction
+sample_corr: True
+GFP_corr: True
+HBB_corr: True
+# Gene list
+gene_list: ['DMRT1', 'STRA8', 'NANOS3', 'SMC1B', 'XAGE5', 'DDX4', 'DCAF4L2', 'CALN1', 'AUTS2', 'TOP2A', 'HORMAD1',
+'HORMAD2', 'SYCP1', 'SYCP2', 'SYCP3', 'MEIOSIN', 'PRDM9', 'SYCE1', 'SYCE2','SYCE3','SPATA22', 'TEX11', 'ANKRD7', 'DAZL',
+'SCP1','SCP2','SCP3','DMC1','MEIOB','MEIOC','M1AP','MEI1','WEE2','MNS1','MEI4','MEIG1','RAD51', 'RAD52','TEX15',
+'APOE','ACTB','FSHR', 'CYP17A1','INSL3','FATE1','WT1', 'ZBTB16','MEG3', 'SYNE1', 'SYNE2', 'GPC5','IGB','IGFBP7',
+'ARMC4','HMGB4','PRM1','PRM2','FIGLA','ZP1','ZP2','ZP3',
+'NANOG',
+'IFIT1','IFIT2','IFIT3','IFI6','IFITM1','CXCL10','IFNB1','IL32','CCL5']                          
+# meiotic genes # synthethic mRNA # HEK marker # immuno markers (transference)
+
+# 4. FILTERING
+filtering_method: "filtering" # filtering filtering_nosplici
+mt_hard_filter: 10             # 20 % (alevin) before mt filter # 10 (everything except ivn alevin)
+rb_hard_filter: 20             # 51 % (alevin) before rb filter # 20 (everything except ivn alevin)
+min_genes: 500                 # 500 (hardcells) 100 (softcells) 50 (softsoftcells) # Filter cells (based on normalized)
+min_counts_cells: 1000         # 1000 (hardcells) 250 (softcells) 100 (softsoftcells)
+min_cells: 0                   # Filter genes (based on normalized (spliced))
+min_counts_genes: 0
+min_cells_u: 0                 # Filter genes (based on unspliced)
+min_counts_genes_u: 0
+min_shared_cells: 0            # Filter genes (based on spliced + unspliced)
+min_shared_counts_genes: 0
+n_high_expr_genes: 10          # Number of high expressed genes to plot           
+threshold_doublets: 0.45
+
+# 5. NORMALIZATION
+normalization_method: "normalization"
+n_highly_var: 20000            # Number of highly variables
+hvg: False
+scaling: False
+
+# 6. INTEGRATION
+integration_method: "scVI" # "bbknn" "scVI" "scGPT_int" "diffmap"
+# common 
+n_neighbours: 10  # 10
+cluster: "leiden" # leiden for scvelo, louvain for paga. Same as clustering, please. Cluster method for using in velocity graphs (calculated based on neighbors based on neighbors)
+resolution: 1.0
+# bbknn
+n_pcs: 40               
+cat_covariate: "study"     # "sample" "study" #ONLY STRING
+layer_pca_int: "normalized" # "scaled"
+# scvi
+n_latent: 10
+batch_size: 32    # 31 in Murat chicken # 32 everyone
+cat_covariates: ["study", "sample", "specie", "gender", "cell_type"] #  VERY IMPORTANT, MUST BE LISTS
+cont_covariates: ["n_genes_by_counts", "pct_counts_mito"] # VERY IMPORTANT, MUST BE LISTS
+n_epochs: 100   # 100 for culm # 1000 for linear?
+# scgpt_int
+model_scGPT_annot: "whole-human"
+# plots
+# ''''X_mde'''' "pca" "umap"  # for scvelo, ''''X_draw_graph_fr'''' 'X_umap' 'X_mde' for paga
+# scib metrics
+covariates_metrics: ["study", "sample", "specie", "gender", "cell_type"]   # Used for atlas and standard
+#covariates_metrics: ["study_comb"]   # Used for meioticinduction
+scib_method_int: "standard" # "atlas" "meioticinduction" "standard"
+cell_inducted_int: "SPG"    # Used only in meioticinduction
+
+# 7. ANNOTATION
+annotation_method: "marker_genes" # "ivynatal_annot" "scGPT_annot" "marker_genes"
+# Ivynatal_annot
+threshold_an: -0.36         # -0.36 cellranger, -0.45 alevin
+# scGPT_annot
+model_scGPT_annot: "whole-human"
+index_scGPT_annot: "CellXGene"
+faiss_method: "faiss_build" # "faiss_build" "faiss_add" "no_faiss"
+n_neighbors_faiss: 50 # "50" for build, 10 for add and no_faiss
+# marker_genes
+study_marker_genes: "Hermann"
+
+# 8. VELOCITY
+velocity_method: "scvelo" # "scvelo" "paga" "no_velo"
+# paga
+cluster_root: "SPG"       # "HEK"
+
+# 9. DGE
+DGE_method: "diffxpy" # "diffxpy" "rank_scanpy" "rank_scvelo" "rank_scvi" "corrmat"
+cat_var_rank: 'cell_annot_comb' # "cell_annot" "cell_annot_comb" 'leiden' 'sample' 'study' 'gender' 'state' 'sample_corr'
+# diffxpy
+cont_covariates_diffxpy: ["n_genes_by_counts", "pct_counts_mito"]
+dge_method: "standard" # "meioticinduction" "standard"
+cell_inducted_dge: "SPG"    # Used only in meioticinduction
+# corrmat
+gene_list_corr: ['DMRT1', 'STRA8', 'NANOS3', 'SMC1B']    # the gene_list is in count matrix step
+n_corr_genes: 15
+# rank_scanpy
+#n_rank_genes: 30
+# gseapy
+gene_set: "GO_Biological_Process_2021" # "GO_Biological_Process_2021" "KEGG_2016"
+
+# 10. GSA
+GSA_method: "gseapy" # "gseapy"
+# gseapy
+gene_set: "GO_Biological_Process_2021" # "GO_Biological_Process_2021" "KEGG_2016"
+#gene_set: "/mnt/d/ref/gene_set.json"
+rank_stats: ["gene","log2fc"]
