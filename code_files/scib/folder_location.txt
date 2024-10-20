@@ -1,0 +1,5 @@
+$HOME/miniforge3/envs/d913e97c1b392af455cf10d3c15698e8_/lib/python3.12/site-packages/scib/metrics/__init__.py
+
+$HOME/miniforge3/envs/d913e97c1b392af455cf10d3c15698e8_/lib/python3.12/site-packages/scib/metrics/metrics.py
+
+$HOME/miniforge3/envs/d913e97c1b392af455cf10d3c15698e8_/lib/python3.12/site-packages/scib/metrics/silhouette.py
