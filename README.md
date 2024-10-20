@@ -42,6 +42,9 @@ $ export PATH=$HOME/.cargo/bin:$PATH
 
 The rest of environments are contained in workflow/envs folder, and are installed directly through conda argument in snakemake rules.
 
+### Extra installation
+
+To run scib and scvelo environments, the files contained in code_files need to subsitute the original ones for each package. The location of each file is stored in the folder_location.txt files.
 
 ### Resources
 
