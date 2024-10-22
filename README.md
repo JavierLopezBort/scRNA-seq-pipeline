@@ -13,6 +13,13 @@ The two scgATLAS are stored in two .h5ad files:
 
 https://drive.google.com/drive/folders/1xmktrmxxZYA6a5qkGQ-zaQpGRN2qe0St?usp=sharing
 
+The embedding plots with the corresponding covariate variables are shown here:
+
+![scgATLAS-in vivo](./images/invivo.png)
+
+![scgATLAS-in vitro](./images/invitro.png)
+
+
 ## Prerequisites
 
 ### Installation
